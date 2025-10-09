@@ -1,0 +1,10 @@
+{
+  "block.kredstone.encased_capacitor": "Encased Capacitor",
+  "block.kredstone.machine_core": "Machine Core",
+  "block.kredstone.steel_block": "Steel Block",
+  "item.kredstone.capacitor": "Capacitor",
+  "item.kredstone.prepared_steel": "Prepared Steel Mixture",
+  "item.kredstone.silicon": "Silicon",
+  "item.kredstone.steel_ingot": "Steel Ingot",
+  "itemGroup.kredstone": "1000 Redstone"
+}

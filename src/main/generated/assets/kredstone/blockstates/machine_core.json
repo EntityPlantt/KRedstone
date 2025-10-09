@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "kredstone:block/machine_core"
+    }
+  }
+}

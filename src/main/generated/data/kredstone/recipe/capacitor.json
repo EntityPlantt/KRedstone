@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "c": "minecraft:copper_ingot",
+    "i": "minecraft:iron_ingot",
+    "r": "minecraft:redstone",
+    "s": "kredstone:silicon"
+  },
+  "pattern": [
+    "scs",
+    "cic",
+    "srs"
+  ],
+  "result": {
+    "count": 4,
+    "id": "kredstone:capacitor"
+  }
+}

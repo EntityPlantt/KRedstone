@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "kredstone:capacitor",
+    "minecraft:polished_deepslate_slab"
+  ],
+  "result": {
+    "count": 1,
+    "id": "kredstone:encased_capacitor"
+  }
+}

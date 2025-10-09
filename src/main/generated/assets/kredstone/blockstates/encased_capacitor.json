@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "kredstone:block/encased_capacitor",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "kredstone:block/encased_capacitor",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "kredstone:block/encased_capacitor",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "kredstone:block/encased_capacitor",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "kredstone:block/encased_capacitor"
+    },
+    "facing=west": {
+      "model": "kredstone:block/encased_capacitor",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

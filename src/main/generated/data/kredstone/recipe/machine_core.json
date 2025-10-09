@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "r": "minecraft:redstone",
+    "s": "kredstone:steel_ingot"
+  },
+  "pattern": [
+    "sss",
+    "srs",
+    "sss"
+  ],
+  "result": {
+    "count": 1,
+    "id": "kredstone:machine_core"
+  }
+}

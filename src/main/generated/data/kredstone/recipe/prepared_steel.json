@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "c": "#minecraft:coals",
+    "i": "minecraft:iron_ingot"
+  },
+  "pattern": [
+    "iii",
+    "ici",
+    "iii"
+  ],
+  "result": {
+    "count": 8,
+    "id": "kredstone:prepared_steel"
+  }
+}

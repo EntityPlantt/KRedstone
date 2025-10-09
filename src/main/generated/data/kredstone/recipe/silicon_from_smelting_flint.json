@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.3,
+  "group": "silicon",
+  "ingredient": "minecraft:flint",
+  "result": {
+    "id": "kredstone:silicon"
+  }
+}

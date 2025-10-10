@@ -6,6 +6,8 @@ import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.client.data.BlockStateModelGenerator;
 import net.minecraft.client.data.ItemModelGenerator;
+import net.minecraft.client.data.ItemModels;
+import net.minecraft.client.data.ModelIds;
 import net.minecraft.client.data.Models;
 
 public class ModelProvider extends FabricModelProvider {
@@ -29,6 +31,7 @@ public class ModelProvider extends FabricModelProvider {
 		gen.register(ModItems.PREPARED_STEEL, Models.GENERATED);
 		gen.register(ModItems.SILICON, Models.GENERATED);
 		gen.register(ModItems.CAPACITOR, Models.GENERATED);
+		gen.output.accept(ModBlocks.EXCITER.asItem(), ItemModels.basic(ModelIds.getBlockModelId(ModBlocks.EXCITER)));
 	}
 
 	@Override

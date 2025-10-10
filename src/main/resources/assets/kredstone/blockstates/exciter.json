@@ -1,0 +1,13 @@
+{
+	"variants": {
+		"power=0": {
+			"model": "kredstone:block/exciter"
+		},
+		"power=1": {
+			"model": "kredstone:block/exciter_powered"
+		},
+		"power=2": {
+			"model": "kredstone:block/exciter_powered"
+		}
+	}
+}

@@ -2,6 +2,7 @@ package io.github.entityplantt.kredstone.block_entities;
 
 import io.github.entityplantt.kredstone.ModBlockEntities;
 import io.github.entityplantt.kredstone.blocks.EncasedCapacitorBlock;
+import io.github.entityplantt.kredstone.blocks.IPowerableBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
@@ -40,10 +41,19 @@ public class EncasedCapacitorBlockEntity extends BlockEntity {
 
 	public static void tick(World world, BlockPos pos, BlockState state, BlockEntity _entity) {
 		EncasedCapacitorBlockEntity e = (EncasedCapacitorBlockEntity) _entity;
+		Direction d = state.get(EncasedCapacitorBlock.FACING);
 		if (e.fuel > 0) {
-			e.fuel--;
+			BlockPos neighborPos = pos.offset(d.getOpposite());
+			BlockState neighbor = world.getBlockState(neighborPos);
+			if (neighbor.getBlock() instanceof IPowerableBlock) {
+				IPowerableBlock b = (IPowerableBlock) neighbor.getBlock();
+				int requiredPower = b.powerNeeds(world, neighborPos, neighbor, d);
+				if (requiredPower <= e.fuel) {
+					e.fuel -= requiredPower;
+					b.getPowered(world, neighborPos, neighbor, d);
+				}
+			}
 			if (Math.random() < .1) {
-				Direction d = state.get(EncasedCapacitorBlock.FACING);
 				world.addParticleClient(ParticleTypes.ELECTRIC_SPARK,
 						pos.getX() + .5 - d.getOffsetX() * .25,
 						pos.getY() + .5 - d.getOffsetY() * .25,

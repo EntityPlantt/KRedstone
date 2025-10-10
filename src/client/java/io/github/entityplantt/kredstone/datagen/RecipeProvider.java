@@ -8,6 +8,7 @@ import io.github.entityplantt.kredstone.ModItems;
 import net.minecraft.data.recipe.RecipeExporter;
 import net.minecraft.data.recipe.RecipeGenerator;
 import net.minecraft.item.Items;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
@@ -58,6 +59,15 @@ public class RecipeProvider extends FabricRecipeProvider {
 						.input(ModItems.CAPACITOR)
 						.input(Items.POLISHED_DEEPSLATE_SLAB)
 						.criterion(hasItem(ModItems.CAPACITOR), conditionsFromItem(ModItems.CAPACITOR))
+						.offerTo(exporter);
+				createShaped(rc, ModBlocks.EXCITER.asItem())
+						.pattern("gag").pattern("ama").pattern("grg")
+						.input('g', Ingredient.ofItems(Items.GLOWSTONE_DUST, Items.QUARTZ))
+						.input('a', Items.AMETHYST_SHARD)
+						.input('r', Items.REDSTONE)
+						.input('m', ModBlocks.MACHINE_CORE.asItem())
+						.criterion(hasItem(ModBlocks.MACHINE_CORE.asItem()),
+								conditionsFromItem(ModBlocks.MACHINE_CORE.asItem()))
 						.offerTo(exporter);
 			}
 		};

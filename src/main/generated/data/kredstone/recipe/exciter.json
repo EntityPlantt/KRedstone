@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "a": "minecraft:amethyst_shard",
+    "g": [
+      "minecraft:glowstone_dust",
+      "minecraft:quartz"
+    ],
+    "m": "kredstone:machine_core",
+    "r": "minecraft:redstone"
+  },
+  "pattern": [
+    "gag",
+    "ama",
+    "grg"
+  ],
+  "result": {
+    "count": 1,
+    "id": "kredstone:exciter"
+  }
+}

@@ -23,6 +23,7 @@ public class EnglishLanguageProvider extends net.fabricmc.fabric.api.datagen.v1.
 		b.add(ModBlocks.STEEL_BLOCK, "Steel Block");
 		b.add(ModBlocks.MACHINE_CORE, "Machine Core");
 		b.add(ModBlocks.ENCASED_CAPACITOR, "Encased Capacitor");
+		b.add(ModBlocks.EXCITER, "Exciter");
 		b.add("itemGroup.kredstone", "1000 Redstone");
 	}
 }

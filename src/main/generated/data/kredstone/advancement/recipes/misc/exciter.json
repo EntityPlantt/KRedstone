@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_machine_core": {
+      "conditions": {
+        "items": [
+          {
+            "items": "kredstone:machine_core"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "kredstone:exciter"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_machine_core"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "kredstone:exciter"
+    ]
+  }
+}

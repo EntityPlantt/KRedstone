@@ -2,6 +2,7 @@ package io.github.entityplantt.kredstone;
 
 import java.util.function.Function;
 
+import io.github.entityplantt.kredstone.items.*;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
@@ -29,7 +30,7 @@ public class ModItems {
 	public static final Item STEEL_INGOT = register("steel_ingot", Item::new, new Item.Settings());
 	public static final Item SILICON = register("silicon", Item::new, new Item.Settings());
 	public static final Item CAPACITOR = register("capacitor", Item::new, new Item.Settings());
-	public static final Item FUEL = register("fuel", Item::new, new Item.Settings());
+	public static final Item FUEL_SUPPLIER = register("fuel_supplier", FuelSupplierRod::new, new Item.Settings());
 
 	public static final ItemGroup ITEM_GROUP = Registry.register(Registries.ITEM_GROUP, ITEM_GROUP_KEY,
 			FabricItemGroup.builder()
@@ -37,5 +38,6 @@ public class ModItems {
 					.build());
 
 	public static void init() {
+		KRedstone.LOGGER.info("Registering mod items");
 	}
 }

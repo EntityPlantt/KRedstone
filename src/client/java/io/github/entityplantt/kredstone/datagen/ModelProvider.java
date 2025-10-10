@@ -32,6 +32,7 @@ public class ModelProvider extends FabricModelProvider {
 		gen.register(ModItems.SILICON, Models.GENERATED);
 		gen.register(ModItems.CAPACITOR, Models.GENERATED);
 		gen.output.accept(ModBlocks.EXCITER.asItem(), ItemModels.basic(ModelIds.getBlockModelId(ModBlocks.EXCITER)));
+		gen.register(ModItems.FUEL_SUPPLIER, Models.HANDHELD);
 	}
 
 	@Override

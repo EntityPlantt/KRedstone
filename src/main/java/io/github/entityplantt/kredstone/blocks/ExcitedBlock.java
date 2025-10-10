@@ -34,10 +34,9 @@ public class ExcitedBlock extends Block {
 
 	@Override
 	protected void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-		if (random.nextInt(5) == 0) {
+		if (random.nextInt(5) == 0)
 			world.setBlockState(pos, normalBlock.getDefaultState());
-			world.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS);
-		} else
+		else
 			world.scheduleBlockTick(pos, state.getBlock(), 2);
 	}
 

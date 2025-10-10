@@ -63,5 +63,6 @@ public class ModBlocks {
 			true);
 
 	public static void init() {
+		KRedstone.LOGGER.info("Registering mod blocks");
 	}
 }

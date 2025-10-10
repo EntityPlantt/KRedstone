@@ -21,5 +21,6 @@ public class ModBlockEntities {
 			EncasedCapacitorBlockEntity::new, ModBlocks.ENCASED_CAPACITOR);
 
 	public static void init() {
+		KRedstone.LOGGER.info("Registering mod block entities");
 	}
 }

@@ -8,6 +8,7 @@ e67de38af6a40a4724c07fa2d8003e834eb2c713 assets/kredstone/blockstates/machine_co
 0deef20ae517e69d867b90f1aac535c8dbd6c9d5 assets/kredstone/items/capacitor.json
 36b0e35e8a0a2814f628b259bbc2d108f26525f8 assets/kredstone/items/encased_capacitor.json
 d500feadf48f474c8a397d90e9c1a1083cecca4e assets/kredstone/items/exciter.json
+4a16169288896154d210d719eac50050d29ae58c assets/kredstone/items/fuel_supplier.json
 5767b17ec6cf63df7cbf56a317299708b78ccfd5 assets/kredstone/items/machine_core.json
 318cd584caeb180c82ac045e127f01ea2c902db6 assets/kredstone/items/prepared_steel.json
 a60ebfc3d888507dedcd052d5e6d859f5ac405d2 assets/kredstone/items/silicon.json
@@ -19,6 +20,7 @@ a26a857a67c6110bfd63e0a70c20e8b37750aee3 assets/kredstone/models/block/excited_b
 9ee37a956dd8e1592478f7dbadd90b6f06cf859d assets/kredstone/models/block/machine_core.json
 c5144cd40db8bc4897570a633d887f903e4b5de0 assets/kredstone/models/block/steel_block.json
 109e17a55c9e674bf40dcd2296ba6b4e19417cfd assets/kredstone/models/item/capacitor.json
+9dc3040fb5bfb2929d12f25b449589e280153aad assets/kredstone/models/item/fuel_supplier.json
 3d32cc5ed7ece570981d635128971c73973deef8 assets/kredstone/models/item/prepared_steel.json
 66cf24d52f8b29ba40b7d03e36e84225ac6cf896 assets/kredstone/models/item/silicon.json
 a54bd147497f28ef46d5fd6e90869d4ccb6f1a20 assets/kredstone/models/item/steel_ingot.json

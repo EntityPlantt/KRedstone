@@ -4,11 +4,18 @@ import io.github.entityplantt.kredstone.ModBlocks;
 import io.github.entityplantt.kredstone.ModItems;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.minecraft.block.Block;
 import net.minecraft.client.data.BlockStateModelGenerator;
 import net.minecraft.client.data.ItemModelGenerator;
 import net.minecraft.client.data.ItemModels;
 import net.minecraft.client.data.ModelIds;
 import net.minecraft.client.data.Models;
+import net.minecraft.client.data.TextureMap;
+import net.minecraft.client.data.TexturedModel;
+import net.minecraft.client.data.VariantsBlockModelDefinitionCreator;
+import net.minecraft.client.render.model.json.WeightedVariant;
+import net.minecraft.state.property.Properties;
+import net.minecraft.state.property.BooleanProperty;
 
 public class ModelProvider extends FabricModelProvider {
 	public ModelProvider(FabricDataOutput output) {
@@ -23,6 +30,18 @@ public class ModelProvider extends FabricModelProvider {
 		gen.registerSimpleCubeAll(ModBlocks.EXCITED_BEDROCK);
 		gen.registerSimpleCubeAll(ModBlocks.EXCITED_OBSIDIAN);
 		gen.registerSimpleCubeAll(ModBlocks.EXCITED_CRYING_OBSIDIAN);
+		registerBooleanProperty(gen, ModBlocks.BURNER, Properties.LIT, "_on");
+	}
+
+	private void registerBooleanProperty(BlockStateModelGenerator gen, Block b, BooleanProperty p,
+			String trueSubModel) {
+		WeightedVariant weightedVariant = BlockStateModelGenerator
+				.createWeightedVariant(TexturedModel.CUBE_ALL.upload(b, gen.modelCollector));
+		WeightedVariant weightedVariant2 = BlockStateModelGenerator.createWeightedVariant(
+				gen.createSubModel(b, trueSubModel, Models.CUBE_ALL, TextureMap::all));
+		gen.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(b)
+				.with(BlockStateModelGenerator.createBooleanModelMap(Properties.LIT, weightedVariant2,
+						weightedVariant)));
 	}
 
 	@Override

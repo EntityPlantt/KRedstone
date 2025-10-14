@@ -12,6 +12,7 @@ import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -25,7 +26,8 @@ public class FuelSupplierRod extends Item {
 	@Override
 	public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent,
 			Consumer<Text> textConsumer, TooltipType type) {
-		textConsumer.accept(Text.of("Fuel: " + stack.getOrDefault(ModComponents.FUEL, 0).toString()));
+		textConsumer.accept(Text.translatable("item.kredstone.fuel_supplier.tooltip",
+				stack.getOrDefault(ModComponents.FUEL, 0).toString()).formatted(Formatting.GRAY));
 	}
 
 	@Override

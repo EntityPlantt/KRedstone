@@ -2,6 +2,7 @@ package io.github.entityplantt.kredstone;
 
 import java.util.function.Function;
 
+import io.github.entityplantt.kredstone.blocks.BurnerBlock;
 import io.github.entityplantt.kredstone.blocks.EncasedCapacitorBlock;
 import io.github.entityplantt.kredstone.blocks.ExcitedBlock;
 import io.github.entityplantt.kredstone.blocks.ExciterBlock;
@@ -48,6 +49,8 @@ public class ModBlocks {
 			Blocks.IRON_BLOCK.getSettings().mapColor(MapColor.GRAY), true);
 	public static final Block MACHINE_CORE = register("machine_core", Block::new,
 			Blocks.IRON_BLOCK.getSettings(), true);
+	public static final BurnerBlock BURNER = register("burner", BurnerBlock::new, Blocks.IRON_BLOCK.getSettings(),
+			true);
 	public static final Block EXCITED_BEDROCK = ExcitedBlock.register(Blocks.BEDROCK);
 	public static final Block EXCITED_OBSIDIAN = ExcitedBlock.register(Blocks.OBSIDIAN);
 	public static final Block EXCITED_CRYING_OBSIDIAN = ExcitedBlock.register(Blocks.CRYING_OBSIDIAN);

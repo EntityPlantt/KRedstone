@@ -5,6 +5,8 @@ import java.util.concurrent.CompletableFuture;
 
 import io.github.entityplantt.kredstone.ModBlocks;
 import io.github.entityplantt.kredstone.ModItems;
+import net.minecraft.advancement.AdvancementCriterion;
+import net.minecraft.advancement.criterion.InventoryChangedCriterion;
 import net.minecraft.data.recipe.RecipeExporter;
 import net.minecraft.data.recipe.RecipeGenerator;
 import net.minecraft.item.Items;
@@ -60,15 +62,22 @@ public class RecipeProvider extends FabricRecipeProvider {
 						.input(Items.POLISHED_DEEPSLATE_SLAB)
 						.criterion(hasItem(ModItems.CAPACITOR), conditionsFromItem(ModItems.CAPACITOR))
 						.offerTo(exporter);
+				final String mcc1 = hasItem(ModBlocks.MACHINE_CORE.asItem());
+				final AdvancementCriterion<InventoryChangedCriterion.Conditions> mcc2 = conditionsFromItem(
+						ModBlocks.MACHINE_CORE.asItem());
 				createShaped(rc, ModBlocks.EXCITER.asItem())
 						.pattern("gag").pattern("ama").pattern("grg")
 						.input('g', Ingredient.ofItems(Items.GLOWSTONE_DUST, Items.QUARTZ))
 						.input('a', Items.AMETHYST_SHARD)
 						.input('r', Items.REDSTONE)
 						.input('m', ModBlocks.MACHINE_CORE.asItem())
-						.criterion(hasItem(ModBlocks.MACHINE_CORE.asItem()),
-								conditionsFromItem(ModBlocks.MACHINE_CORE.asItem()))
-						.offerTo(exporter);
+						.criterion(mcc1, mcc2).offerTo(exporter);
+				createShaped(rc, ModBlocks.BURNER.asItem())
+						.pattern("rcr").pattern("cmc").pattern("rcr")
+						.input('r', Items.REDSTONE)
+						.input('c', ItemTags.COALS)
+						.input('m', ModBlocks.MACHINE_CORE.asItem())
+						.criterion(mcc1, mcc2).offerTo(exporter);
 			}
 		};
 	}

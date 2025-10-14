@@ -1,6 +1,6 @@
 package io.github.entityplantt.kredstone;
 
-import io.github.entityplantt.kredstone.block_entities.EncasedCapacitorBlockEntity;
+import io.github.entityplantt.kredstone.block_entities.*;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
@@ -19,6 +19,7 @@ public class ModBlockEntities {
 
 	public static final BlockEntityType<EncasedCapacitorBlockEntity> ENCASED_CAPACITOR = register("encased_capacitor",
 			EncasedCapacitorBlockEntity::new, ModBlocks.ENCASED_CAPACITOR);
+	public static final BlockEntityType<BurnerBlockEntity> BURNER = register("burner", BurnerBlockEntity::new, ModBlocks.BURNER);
 
 	public static void init() {
 		KRedstone.LOGGER.info("Registering mod block entities");

@@ -17,6 +17,7 @@ public class KRedstone implements ModInitializer {
 		ModBlocks.init();
 		ModBlockEntities.init();
 		ModComponents.init();
+		ModScreenHandlers.init();
 	}
 	public static Identifier id(String s) {
 		return Identifier.of(MOD_ID, s);

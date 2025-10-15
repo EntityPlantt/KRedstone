@@ -20,7 +20,7 @@ public class ExcitedBlock extends Block {
 	private static HashMap<Block, ExcitedBlock> excitedVersion = new HashMap<>();
 
 	public ExcitedBlock(Block b, RegistryKey<Block> k) {
-		super(b.getSettings().registryKey(k).pistonBehavior(PistonBehavior.PUSH_ONLY).strength(5)
+		super(b.getSettings().registryKey(k).pistonBehavior(PistonBehavior.NORMAL).strength(5)
 				.luminance((BlockState state) -> 2).requiresTool());
 		normalBlock = b;
 	}

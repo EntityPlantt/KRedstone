@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "kredstone:block/burner"
+    },
+    "lit=true": {
+      "model": "kredstone:block/burner_on"
+    }
+  }
+}

@@ -1,10 +1,12 @@
 {
+  "block.kredstone.burner": "Burner",
   "block.kredstone.encased_capacitor": "Encased Capacitor",
   "block.kredstone.exciter": "Exciter",
   "block.kredstone.machine_core": "Machine Core",
   "block.kredstone.steel_block": "Steel Block",
   "item.kredstone.capacitor": "Capacitor",
   "item.kredstone.fuel_supplier": "Fuel Supplier Rod",
+  "item.kredstone.fuel_supplier.tooltip": "Fuel: %1",
   "item.kredstone.prepared_steel": "Prepared Steel Mixture",
   "item.kredstone.silicon": "Silicon",
   "item.kredstone.steel_ingot": "Steel Ingot",

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "c": "#minecraft:coals",
+    "m": "kredstone:machine_core",
+    "r": "minecraft:redstone"
+  },
+  "pattern": [
+    "rcr",
+    "cmc",
+    "rcr"
+  ],
+  "result": {
+    "count": 1,
+    "id": "kredstone:burner"
+  }
+}

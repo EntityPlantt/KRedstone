@@ -1,4 +1,5 @@
 // 1.21.10	-999999999-01-01T00:00:00	1000 Redstone/RecipeProvider
+7e95cd7ce3d354ef6cfbe72f574c77475fd19355 data/kredstone/advancement/recipes/misc/burner.json
 6abcaeab9ed7347838c04c6d7d5e0f10c9dc0858 data/kredstone/advancement/recipes/misc/capacitor.json
 7d2c31baa1cce91886d6b03f160f0b3dab685dc8 data/kredstone/advancement/recipes/misc/encased_capacitor.json
 1db5c78a9090db24cbf0c04122c96a21c51433a1 data/kredstone/advancement/recipes/misc/exciter.json
@@ -8,6 +9,7 @@ b13547520d289760f2e4ff9b78ff397982ab51f3 data/kredstone/advancement/recipes/misc
 167ad6faa1a0aef4a4523f4903af67bc2aeeda72 data/kredstone/advancement/recipes/misc/steel_block.json
 03188e33c5f0d61f2411b31f80045b5b912bd91d data/kredstone/advancement/recipes/misc/steel_ingot.json
 f8800c24ab29a33a2ea455866163fa15b2e902d1 data/kredstone/advancement/recipes/misc/steel_ingot_from_blasting_prepared_steel.json
+01126486348e49e3c034cea52d7eec92bdd471b3 data/kredstone/recipe/burner.json
 920d19ce24d6f48db953bdd0e0ad7f459a0a3608 data/kredstone/recipe/capacitor.json
 2fe2825c9cbe6c1dbd715ab29dbf6bed6c59e5c0 data/kredstone/recipe/encased_capacitor.json
 498acbdf868c103b463f348a3883874c0e6b7d98 data/kredstone/recipe/exciter.json

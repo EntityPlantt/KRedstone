@@ -7,7 +7,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 public class EncasedCapacitorBlockEntity extends AbstractFuelContainerBlockEntity {
@@ -16,13 +15,12 @@ public class EncasedCapacitorBlockEntity extends AbstractFuelContainerBlockEntit
 	}
 
 	public static void tick(World world, BlockPos pos, BlockState state, BlockEntity _entity) {
-		EncasedCapacitorBlockEntity e = (EncasedCapacitorBlockEntity) _entity;
-		Direction d = state.get(EncasedCapacitorBlock.FACING);
+		var e = (EncasedCapacitorBlockEntity) _entity;
+		var d = state.get(EncasedCapacitorBlock.FACING);
 		if (e.fuel > 0) {
-			BlockPos neighborPos = pos.offset(d.getOpposite());
-			BlockState neighbor = world.getBlockState(neighborPos);
-			if (neighbor.getBlock() instanceof IPowerableBlock) {
-				IPowerableBlock b = (IPowerableBlock) neighbor.getBlock();
+			var neighborPos = pos.offset(d.getOpposite());
+			var neighbor = world.getBlockState(neighborPos);
+			if (neighbor.getBlock() instanceof IPowerableBlock b) {
 				int requiredPower = b.powerNeeds(world, neighborPos, neighbor, d);
 				if (requiredPower <= e.fuel) {
 					e.fuel -= requiredPower;

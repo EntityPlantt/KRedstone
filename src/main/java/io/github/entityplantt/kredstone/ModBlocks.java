@@ -20,6 +20,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.state.property.Properties;
 
 public class ModBlocks {
 	public static <T extends Block> T register(String name, Function<AbstractBlock.Settings, T> blockFactory,
@@ -49,8 +50,10 @@ public class ModBlocks {
 			Blocks.IRON_BLOCK.getSettings().mapColor(MapColor.GRAY), true);
 	public static final Block MACHINE_CORE = register("machine_core", Block::new,
 			Blocks.IRON_BLOCK.getSettings(), true);
-	public static final BurnerBlock BURNER = register("burner", BurnerBlock::new, Blocks.IRON_BLOCK.getSettings(),
-			true);
+	public static final BurnerBlock BURNER = register("burner", BurnerBlock::new,
+			Blocks.IRON_BLOCK.getSettings().luminance(state -> {
+				return state.get(Properties.LIT) ? 5 : 0;
+			}), true);
 	public static final Block EXCITED_BEDROCK = ExcitedBlock.register(Blocks.BEDROCK);
 	public static final Block EXCITED_OBSIDIAN = ExcitedBlock.register(Blocks.OBSIDIAN);
 	public static final Block EXCITED_CRYING_OBSIDIAN = ExcitedBlock.register(Blocks.CRYING_OBSIDIAN);

@@ -1,20 +1,34 @@
 package io.github.entityplantt.kredstone.block_entities;
 
 import io.github.entityplantt.kredstone.ModBlockEntities;
+import io.github.entityplantt.kredstone.ModBlocks;
 import io.github.entityplantt.kredstone.ModComponents;
+import io.github.entityplantt.kredstone.network.BlockPosPayload;
+import io.github.entityplantt.kredstone.screenhandlers.BurnerBlockScreenHandler;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.registry.RegistryWrapper.WrapperLookup;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.property.Properties;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BurnerBlockEntity extends BlockEntity {
-	public static String KEY_ROD = "rod", KEY_FUEL = "fuel", KEY_BURNLEFT = "burn_left", KEY_BURNTOTAL = "burn_total";
+public class BurnerBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory<BlockPosPayload> {
+	public static final String KEY_ROD = "rod", KEY_FUEL = "fuel", KEY_BURNLEFT = "burn_left", KEY_BURNTOTAL = "burn_total";
+	public static final Text DISPLAY_NAME = Text.translatable(ModBlocks.BURNER.getTranslationKey());
+	
 	ItemStack rod = ItemStack.EMPTY, fuel = ItemStack.EMPTY;
 	int burnLeft = 0, burnTotal = 0;
 
@@ -57,12 +71,29 @@ public class BurnerBlockEntity extends BlockEntity {
 			if (!entity.rod.isEmpty())
 				entity.rod.set(ModComponents.FUEL, entity.rod.getOrDefault(ModComponents.FUEL, 0) + 1);
 			--entity.burnLeft;
-			if (!state.get(Properties.LIT)) world.setBlockState(pos, state.with(Properties.LIT, true));
-		}
-		else if (state.get(Properties.LIT)) world.setBlockState(pos, state.with(Properties.LIT, false));
+			if (!state.get(Properties.LIT))
+				world.setBlockState(pos, state.with(Properties.LIT, true));
+		} else if (state.get(Properties.LIT))
+			world.setBlockState(pos, state.with(Properties.LIT, false));
 	}
 
-	public void putRod(ItemStack stack) {
-		//
+	@Override
+	public BlockPosPayload getScreenOpeningData(ServerPlayerEntity player) {
+		return new BlockPosPayload(this.pos);
+	}
+
+	@Override
+	public Text getDisplayName() {
+		return DISPLAY_NAME;
+	}
+
+	@Override
+	public ScreenHandler createMenu(int syncId, PlayerInventory inventory, PlayerEntity player) {
+		return new BurnerBlockScreenHandler(syncId, inventory, this);
+	}
+
+	@Override
+	public Packet<ClientPlayPacketListener> toUpdatePacket() {
+		return BlockEntityUpdateS2CPacket.create(this);
 	}
 }

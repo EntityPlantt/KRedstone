@@ -2,6 +2,7 @@ package io.github.entityplantt.kredstone.block_entities;
 
 import org.jetbrains.annotations.Nullable;
 
+import io.github.entityplantt.kredstone.KRedstone;
 import io.github.entityplantt.kredstone.ModBlockEntities;
 import io.github.entityplantt.kredstone.ModBlocks;
 import io.github.entityplantt.kredstone.ModComponents;
@@ -38,7 +39,7 @@ public class BurnerBlockEntity extends BlockEntity
 			KEY_BURNTOTAL = "burn_total";
 	public static final Text DISPLAY_NAME = Text.translatable(ModBlocks.BURNER.getTranslationKey());
 
-	int burnLeft = 0, burnTotal = 0;
+	public int burnLeft = 0, burnTotal = 0;
 	public SimpleInventory inventory;
 
 	public BurnerBlockEntity(BlockPos pos, BlockState state) {
@@ -78,21 +79,42 @@ public class BurnerBlockEntity extends BlockEntity
 	public NbtCompound toInitialChunkDataNbt(WrapperLookup registries) {
 		return createNbt(registries);
 	}
+	
+	public boolean add1FuelToRod() {
+		if (rod().isEmpty()) return false;
+		rod().set(ModComponents.FUEL, rod().getOrDefault(ModComponents.FUEL, 0) + 1);
+		return true;
+	}
+
+	public boolean needsToBurn() {
+		if (!rod().isEmpty()) return true;
+		for (var d : KRedstone.DALL) {
+			if (world.getBlockEntity(pos.offset(d)) instanceof BurnerBlockEntity neigh && !neigh.rod().isEmpty()) return true;
+		}
+		return false;
+	}
 
 	public static void tick(World world, BlockPos pos, BlockState state, BurnerBlockEntity entity) {
-		if (entity.burnLeft == 0 && !entity.fuel().isEmpty() && !entity.rod().isEmpty()) {
-			int fuel = world.getFuelRegistry().getFuelTicks(entity.fuel());
-			entity.fuel().decrement(1);
-			entity.burnLeft = entity.burnTotal = fuel;
-		}
 		if (entity.burnLeft > 0) {
-			if (!entity.rod().isEmpty())
-				entity.rod().set(ModComponents.FUEL, entity.rod().getOrDefault(ModComponents.FUEL, 0) + 1);
+			if (!entity.add1FuelToRod()) {
+				for (var d : KRedstone.DALL) {
+					if (world.getBlockEntity(pos.offset(d)) instanceof BurnerBlockEntity neigh) {
+						if (neigh.add1FuelToRod()) break;
+					}
+				}
+			}
 			--entity.burnLeft;
 			if (!state.get(Properties.LIT))
 				world.setBlockState(pos, state.with(Properties.LIT, true));
-		} else if (state.get(Properties.LIT))
-			world.setBlockState(pos, state.with(Properties.LIT, false));
+		} else if (entity.burnLeft == 0 && !entity.fuel().isEmpty() && entity.needsToBurn()) {
+			int fuel = world.getFuelRegistry().getFuelTicks(entity.fuel());
+			entity.fuel().decrement(1);
+			entity.burnLeft = entity.burnTotal = fuel;
+		} else {
+			entity.burnLeft = entity.burnTotal = 0;
+			if (state.get(Properties.LIT))
+				world.setBlockState(pos, state.with(Properties.LIT, false));
+		}
 	}
 
 	@Override

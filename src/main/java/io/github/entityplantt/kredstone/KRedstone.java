@@ -2,6 +2,7 @@ package io.github.entityplantt.kredstone;
 
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Direction;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +10,8 @@ import org.slf4j.LoggerFactory;
 public class KRedstone implements ModInitializer {
 	public static final String MOD_ID = "kredstone";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+	public static final Direction[] DALL = { Direction.UP, Direction.DOWN, Direction.NORTH, Direction.SOUTH,
+			Direction.EAST, Direction.WEST };
 
 	@Override
 	public void onInitialize() {
@@ -19,6 +22,7 @@ public class KRedstone implements ModInitializer {
 		ModComponents.init();
 		ModScreenHandlers.init();
 	}
+
 	public static Identifier id(String s) {
 		return Identifier.of(MOD_ID, s);
 	}

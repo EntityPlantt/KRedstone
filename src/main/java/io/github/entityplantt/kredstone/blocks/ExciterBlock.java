@@ -2,6 +2,7 @@ package io.github.entityplantt.kredstone.blocks;
 
 import com.mojang.serialization.MapCodec;
 
+import io.github.entityplantt.kredstone.KRedstone;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.server.world.ServerWorld;
@@ -36,8 +37,7 @@ public class ExciterBlock extends Block implements IPowerableBlock {
 		if (state.get(POWER) == 0) return;
 		world.setBlockState(pos, state.with(POWER, state.get(POWER) - 1));
 		if (state.get(POWER) > 1) world.scheduleBlockTick(pos, this, 1);
-		Direction[] dAll = {Direction.UP, Direction.DOWN, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST};
-		for (Direction d : dAll) {
+		for (Direction d : KRedstone.DALL) {
 			BlockPos p = pos.offset(d);
 			BlockState s = world.getBlockState(p);
 			ExcitedBlock e = ExcitedBlock.getExcited(s.getBlock());

@@ -11,7 +11,8 @@ import net.minecraft.util.Identifier;
 
 public class BurnerBlockScreen extends HandledScreen<BurnerBlockScreenHandler> {
 	private static final Identifier TEXTURE = KRedstone.id("textures/gui/container/burner.png");
-	private static final Identifier BURN_TEXTURE = Identifier.ofVanilla("container/furnace/burn_progress");
+	private static final Identifier BURN_TEXTURE = Identifier
+			.ofVanilla("textures/gui/sprites/container/furnace/burn_progress.png");
 
 	public BurnerBlockScreen(BurnerBlockScreenHandler handler, PlayerInventory inventory, Text title) {
 		super(handler, inventory, title);
@@ -27,10 +28,12 @@ public class BurnerBlockScreen extends HandledScreen<BurnerBlockScreenHandler> {
 
 	@Override
 	protected void drawBackground(DrawContext context, float deltaTicks, int mouseX, int mouseY) {
-		context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, backgroundWidth,
+		context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight,
+				backgroundWidth,
 				backgroundHeight);
-		context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, BURN_TEXTURE, 14, 14, 14, 14);
-		// context.fill
+		var entity = handler.getEntity();
+		context.drawTexture(RenderPipelines.GUI_TEXTURED, BURN_TEXTURE, x + 76, y + 22, 0, 0,
+				entity.burnTotal == 0 ? 0 : 24 - entity.burnLeft * 24 / entity.burnTotal, 16, 24, 16);
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package io.github.entityplantt.kredstone.screenhandlers;
 
 import io.github.entityplantt.kredstone.ModBlocks;
+import io.github.entityplantt.kredstone.ModItems;
 import io.github.entityplantt.kredstone.ModScreenHandlers;
 import io.github.entityplantt.kredstone.block_entities.BurnerBlockEntity;
 import io.github.entityplantt.kredstone.network.BlockPosPayload;
@@ -9,6 +10,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.screen.slot.Slot;
 
 public class BurnerBlockScreenHandler extends ScreenHandler {
 	private final BurnerBlockEntity entity;
@@ -25,6 +27,18 @@ public class BurnerBlockScreenHandler extends ScreenHandler {
 		this.entity = entity;
 		context = ScreenHandlerContext.create(entity.getWorld(), entity.getPos());
 		addPlayerSlots(inventory, 8, 50);
+		addSlot(new Slot(entity.inventory, 0, 105, 22) {
+			@Override
+			public boolean canInsert(ItemStack stack) {
+				return stack.getItem().equals(ModItems.FUEL_SUPPLIER);
+			}
+		});
+		addSlot(new Slot(entity.inventory, 1, 55, 22) {
+			@Override
+			public boolean canInsert(ItemStack stack) {
+				return entity.getWorld().getFuelRegistry().isFuel(stack);
+			}
+		});
 	}
 
 	@Override

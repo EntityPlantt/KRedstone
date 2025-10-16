@@ -6,7 +6,7 @@
   "block.kredstone.steel_block": "Steel Block",
   "item.kredstone.capacitor": "Capacitor",
   "item.kredstone.fuel_supplier": "Fuel Supplier Rod",
-  "item.kredstone.fuel_supplier.tooltip": "Fuel: %1",
+  "item.kredstone.fuel_supplier.tooltip": "Fuel: %s",
   "item.kredstone.prepared_steel": "Prepared Steel Mixture",
   "item.kredstone.silicon": "Silicon",
   "item.kredstone.steel_ingot": "Steel Ingot",

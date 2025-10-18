@@ -1,5 +1,7 @@
 package io.github.entityplantt.kredstone.blocks;
 
+import java.util.function.BiConsumer;
+
 import com.mojang.serialization.MapCodec;
 
 import io.github.entityplantt.kredstone.ModBlockEntities;
@@ -11,13 +13,17 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager.Builder;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import net.minecraft.world.explosion.Explosion;
 
 public class BurnerBlock extends BlockWithEntity {
 	private static MapCodec<BurnerBlock> CODEC = createCodec(BurnerBlock::new);
@@ -65,5 +71,25 @@ public class BurnerBlock extends BlockWithEntity {
 			player.openHandledScreen(entity);
 		}
 		return ActionResult.SUCCESS;
+	}
+
+	private static void dropStuff(World world, BlockPos pos) {
+		if (!world.isClient() && world.getBlockEntity(pos) instanceof BurnerBlockEntity entity) {
+			ItemScatterer.spawn(world, pos, entity.rodInventory.heldStacks);
+			ItemScatterer.spawn(world, pos, entity.fuelInventory.heldStacks);
+		}
+	}
+
+	@Override
+	public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+		dropStuff(world, pos);
+		return super.onBreak(world, pos, state, player);
+	}
+
+	@Override
+	protected void onExploded(BlockState state, ServerWorld world, BlockPos pos, Explosion explosion,
+			BiConsumer<ItemStack, BlockPos> stackMerger) {
+		dropStuff(world, pos);
+		super.onExploded(state, world, pos, explosion, stackMerger);
 	}
 }

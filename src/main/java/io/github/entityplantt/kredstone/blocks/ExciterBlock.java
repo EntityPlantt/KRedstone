@@ -2,7 +2,6 @@ package io.github.entityplantt.kredstone.blocks;
 
 import com.mojang.serialization.MapCodec;
 
-import io.github.entityplantt.kredstone.KRedstone;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.server.world.ServerWorld;
@@ -37,10 +36,9 @@ public class ExciterBlock extends Block implements IPowerableBlock {
 		if (state.get(POWER) == 0) return;
 		world.setBlockState(pos, state.with(POWER, state.get(POWER) - 1));
 		if (state.get(POWER) > 1) world.scheduleBlockTick(pos, this, 1);
-		for (Direction d : KRedstone.DALL) {
-			BlockPos p = pos.offset(d);
-			BlockState s = world.getBlockState(p);
-			ExcitedBlock e = ExcitedBlock.getExcited(s.getBlock());
+		for (byte i = -1; i < 2; i++) for (byte j = -1; j < 2; j++) for (byte k = -1; k < 2; k++) {
+			var p = pos.add(i, j, k);
+			var e = ExcitedBlock.getExcited(world.getBlockState(p).getBlock());
 			if (e == null) continue;
 			world.setBlockState(p, e.getDefaultState());
 		}

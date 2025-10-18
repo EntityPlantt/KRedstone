@@ -18,9 +18,10 @@ public class ModItems {
 	public static RegistryKey<ItemGroup> ITEM_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(),
 			KRedstone.id("items"));
 
-	public static Item register(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
+	public static <T extends Item.Settings> Item register(String name, Function<T, Item> factory, T settings) {
 		RegistryKey<Item> key = RegistryKey.of(RegistryKeys.ITEM, KRedstone.id(name));
-		Item item = factory.apply(settings.registryKey(key));
+		@SuppressWarnings("unchecked")
+		Item item = factory.apply((T) settings.registryKey(key));
 		Registry.register(Registries.ITEM, key, item);
 		ItemGroupEvents.modifyEntriesEvent(ITEM_GROUP_KEY).register(i -> i.add(item));
 		return item;
@@ -30,7 +31,11 @@ public class ModItems {
 	public static final Item STEEL_INGOT = register("steel_ingot", Item::new, new Item.Settings());
 	public static final Item SILICON = register("silicon", Item::new, new Item.Settings());
 	public static final Item CAPACITOR = register("capacitor", Item::new, new Item.Settings());
-	public static final Item FUEL_SUPPLIER = register("fuel_supplier", FuelSupplierRod::new, new Item.Settings());
+	public static final Item CAPACITOR_ADVANCED = register("capacitor_advanced", Item::new, new Item.Settings());
+	public static final Item FUEL_SUPPLIER = register("fuel_supplier", FuelSupplierItem::new,
+			new FuelSupplierItem.Settings().fuelSupplier(10000, 100));
+	public static final Item FUEL_SUPPLIER_ADVANCED = register("fuel_supplier_advanced", FuelSupplierItem::new,
+			new FuelSupplierItem.Settings().fuelSupplier(100000, 1000));
 
 	public static final ItemGroup ITEM_GROUP = Registry.register(Registries.ITEM_GROUP, ITEM_GROUP_KEY,
 			FabricItemGroup.builder()

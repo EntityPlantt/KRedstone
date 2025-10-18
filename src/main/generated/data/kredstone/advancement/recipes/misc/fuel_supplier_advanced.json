@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_fuel_supplier": {
+      "conditions": {
+        "items": [
+          {
+            "items": "kredstone:fuel_supplier"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "kredstone:fuel_supplier_advanced"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_fuel_supplier"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "kredstone:fuel_supplier_advanced"
+    ]
+  }
+}

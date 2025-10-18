@@ -17,13 +17,15 @@ public class EnglishLanguageProvider extends net.fabricmc.fabric.api.datagen.v1.
 	@Override
 	public void generateTranslations(WrapperLookup registryLookup, TranslationBuilder b) {
 		b.add("itemGroup.kredstone", "1000 Redstone");
-		b.add("item.kredstone.fuel_supplier.tooltip", "Fuel: %s");
+		b.add("item.kredstone.fuel_supplier.tooltip", "Fuel: %s / %s");
 
 		b.add(ModItems.PREPARED_STEEL, "Prepared Steel Mixture");
 		b.add(ModItems.STEEL_INGOT, "Steel Ingot");
 		b.add(ModItems.SILICON, "Silicon");
 		b.add(ModItems.CAPACITOR, "Capacitor");
+		b.add(ModItems.CAPACITOR_ADVANCED, "Advanced Capacitor");
 		b.add(ModItems.FUEL_SUPPLIER, "Fuel Supplier Rod");
+		b.add(ModItems.FUEL_SUPPLIER_ADVANCED, "Advanced Fuel Supplier Rod");
 
 		b.add(ModBlocks.STEEL_BLOCK, "Steel Block");
 		b.add(ModBlocks.MACHINE_CORE, "Machine Core");

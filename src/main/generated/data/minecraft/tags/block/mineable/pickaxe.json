@@ -1,6 +1,10 @@
 {
   "values": [
     "kredstone:steel_block",
-    "kredstone:machine_core"
+    "kredstone:machine_core",
+    "kredstone:burner",
+    "kredstone:excited_obsidian",
+    "kredstone:excited_crying_obsidian",
+    "kredstone:exciter"
   ]
 }

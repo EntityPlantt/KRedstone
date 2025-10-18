@@ -5,8 +5,6 @@ import java.util.concurrent.CompletableFuture;
 
 import io.github.entityplantt.kredstone.ModBlocks;
 import io.github.entityplantt.kredstone.ModItems;
-import net.minecraft.advancement.AdvancementCriterion;
-import net.minecraft.advancement.criterion.InventoryChangedCriterion;
 import net.minecraft.data.recipe.RecipeExporter;
 import net.minecraft.data.recipe.RecipeGenerator;
 import net.minecraft.item.Items;
@@ -30,8 +28,9 @@ public class RecipeProvider extends FabricRecipeProvider {
 			public void generate() {
 				// RegistryWrapper.Impl<Item> itemLookup =
 				// registries.getOrThrow(RegistryKeys.ITEM);
-
-				final RecipeCategory rc = RecipeCategory.MISC;
+				final var rc = RecipeCategory.MISC;
+				final var mcc1 = hasItem(ModBlocks.MACHINE_CORE.asItem());
+				final var mcc2 = conditionsFromItem(ModBlocks.MACHINE_CORE.asItem());
 
 				createShaped(rc, ModItems.PREPARED_STEEL, 8)
 						.pattern("iii").pattern("ici").pattern("iii")
@@ -62,9 +61,6 @@ public class RecipeProvider extends FabricRecipeProvider {
 						.input(Items.POLISHED_DEEPSLATE_SLAB)
 						.criterion(hasItem(ModItems.CAPACITOR), conditionsFromItem(ModItems.CAPACITOR))
 						.offerTo(exporter);
-				final String mcc1 = hasItem(ModBlocks.MACHINE_CORE.asItem());
-				final AdvancementCriterion<InventoryChangedCriterion.Conditions> mcc2 = conditionsFromItem(
-						ModBlocks.MACHINE_CORE.asItem());
 				createShaped(rc, ModBlocks.EXCITER.asItem())
 						.pattern("gag").pattern("ama").pattern("grg")
 						.input('g', Ingredient.ofItems(Items.GLOWSTONE_DUST, Items.QUARTZ))
@@ -78,6 +74,26 @@ public class RecipeProvider extends FabricRecipeProvider {
 						.input('c', ItemTags.COALS)
 						.input('m', ModBlocks.MACHINE_CORE.asItem())
 						.criterion(mcc1, mcc2).offerTo(exporter);
+				createShaped(rc, ModItems.FUEL_SUPPLIER)
+						.pattern("  b").pattern(" c ").pattern("r  ")
+						.input('b', Items.REDSTONE_BLOCK)
+						.input('r', Items.REDSTONE)
+						.input('c', ModItems.CAPACITOR)
+						.criterion(hasItem(ModItems.CAPACITOR), conditionsFromItem(ModItems.CAPACITOR))
+						.offerTo(exporter);
+				createShaped(rc, ModItems.CAPACITOR_ADVANCED)
+						.pattern("ccc").pattern("cgc").pattern("ccc")
+						.input('c', ModItems.CAPACITOR)
+						.input('g', Items.GOLD_INGOT)
+						.criterion(hasItem(ModItems.CAPACITOR), conditionsFromItem(ModItems.CAPACITOR))
+						.offerTo(exporter);
+				createShaped(rc, ModItems.FUEL_SUPPLIER_ADVANCED)
+						.pattern("  b").pattern(" c ").pattern("r  ")
+						.input('b', ModItems.FUEL_SUPPLIER)
+						.input('r', Items.REDSTONE)
+						.input('c', ModItems.CAPACITOR_ADVANCED)
+						.criterion(hasItem(ModItems.FUEL_SUPPLIER), conditionsFromItem(ModItems.FUEL_SUPPLIER))
+						.offerTo(exporter);
 			}
 		};
 	}

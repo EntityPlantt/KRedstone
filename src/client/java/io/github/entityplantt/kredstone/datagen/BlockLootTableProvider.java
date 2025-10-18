@@ -20,6 +20,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
 		addDrop(ModBlocks.MACHINE_CORE);
 		addDrop(ModBlocks.ENCASED_CAPACITOR, ModItems.CAPACITOR);
 		addDrop(ModBlocks.EXCITER);
+		addDrop(ModBlocks.BURNER);
 		addDrop(ModBlocks.EXCITED_OBSIDIAN, Items.OBSIDIAN);
 		addDrop(ModBlocks.EXCITED_CRYING_OBSIDIAN, Items.CRYING_OBSIDIAN);
 	}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "c": "kredstone:capacitor",
+    "g": "minecraft:gold_ingot"
+  },
+  "pattern": [
+    "ccc",
+    "cgc",
+    "ccc"
+  ],
+  "result": {
+    "count": 1,
+    "id": "kredstone:capacitor_advanced"
+  }
+}

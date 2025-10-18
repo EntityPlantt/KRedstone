@@ -16,12 +16,12 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 		super(output, registriesFuture);
 	}
 
-	public static final TagKey<Block> PICKAXE = TagKey.of(RegistryKeys.BLOCK,
-			Identifier.of("minecraft", "mineable/pickaxe"));
+	public static final TagKey<Block> PICKAXE = TagKey.of(RegistryKeys.BLOCK, Identifier.ofVanilla("mineable/pickaxe"));
 
 	@Override
 	protected void configure(WrapperLookup wrapperLookup) {
 		valueLookupBuilder(PICKAXE).setReplace(false)
-				.add(ModBlocks.STEEL_BLOCK, ModBlocks.MACHINE_CORE);
+				.add(ModBlocks.STEEL_BLOCK, ModBlocks.MACHINE_CORE, ModBlocks.BURNER, ModBlocks.EXCITED_OBSIDIAN,
+						ModBlocks.EXCITED_CRYING_OBSIDIAN, ModBlocks.EXCITER);
 	}
 }

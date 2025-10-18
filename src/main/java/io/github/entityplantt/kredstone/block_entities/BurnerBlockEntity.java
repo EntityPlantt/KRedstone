@@ -1,17 +1,18 @@
 package io.github.entityplantt.kredstone.block_entities;
 
-import org.jetbrains.annotations.Nullable;
-
 import io.github.entityplantt.kredstone.KRedstone;
 import io.github.entityplantt.kredstone.ModBlockEntities;
 import io.github.entityplantt.kredstone.ModBlocks;
 import io.github.entityplantt.kredstone.ModComponents;
+import io.github.entityplantt.kredstone.items.FuelSupplierItem;
 import io.github.entityplantt.kredstone.network.BlockPosPayload;
 import io.github.entityplantt.kredstone.screenhandlers.BurnerBlockScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SidedStorageBlockEntity;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -40,19 +41,48 @@ public class BurnerBlockEntity extends BlockEntity
 	public static final Text DISPLAY_NAME = Text.translatable(ModBlocks.BURNER.getTranslationKey());
 
 	public int burnLeft = 0, burnTotal = 0;
-	public SimpleInventory inventory;
+	public final SimpleInventory rodInventory = new SimpleInventory(1) {
+		@Override
+		public void markDirty() {
+			super.markDirty();
+			update();
+		}
+
+		public boolean canInsert(ItemStack stack) {
+			return getStack(0).isEmpty();
+		}
+	};
+	public final SimpleInventory fuelInventory = new SimpleInventory(1) {
+		@Override
+		public void markDirty() {
+			super.markDirty();
+			update();
+		}
+
+		public boolean canInsert(ItemStack stack) {
+			return getStack(0).isEmpty() && world.getFuelRegistry().isFuel(stack)
+					|| ItemStack.areItemsAndComponentsEqual(stack, getStack(0));
+		}
+	};
+	private final InventoryStorage storages[] = {
+			InventoryStorage.of(rodInventory, Direction.byIndex(0)),
+			InventoryStorage.of(rodInventory, Direction.byIndex(1)),
+			InventoryStorage.of(fuelInventory, Direction.byIndex(2)),
+			InventoryStorage.of(fuelInventory, Direction.byIndex(3)),
+			InventoryStorage.of(fuelInventory, Direction.byIndex(4)),
+			InventoryStorage.of(fuelInventory, Direction.byIndex(5))
+	};
 
 	public BurnerBlockEntity(BlockPos pos, BlockState state) {
 		super(ModBlockEntities.BURNER, pos, state);
-		inventory = new SimpleInventory(2);
 	}
 
 	public ItemStack rod() {
-		return inventory.getStack(0);
+		return rodInventory.getStack(0);
 	}
 
 	public ItemStack fuel() {
-		return inventory.getStack(1);
+		return fuelInventory.getStack(0);
 	}
 
 	public int rodCharge() {
@@ -61,8 +91,8 @@ public class BurnerBlockEntity extends BlockEntity
 
 	@Override
 	protected void readData(ReadView view) {
-		inventory.setStack(0, view.read(KEY_ROD, ItemStack.CODEC).orElse(ItemStack.EMPTY));
-		inventory.setStack(1, view.read(KEY_FUEL, ItemStack.CODEC).orElse(ItemStack.EMPTY));
+		rodInventory.setStack(0, view.read(KEY_ROD, ItemStack.CODEC).orElse(ItemStack.EMPTY));
+		fuelInventory.setStack(0, view.read(KEY_FUEL, ItemStack.CODEC).orElse(ItemStack.EMPTY));
 		burnLeft = view.getInt(KEY_BURNLEFT, 0);
 		burnTotal = view.getInt(KEY_BURNTOTAL, 0);
 	}
@@ -79,34 +109,48 @@ public class BurnerBlockEntity extends BlockEntity
 	public NbtCompound toInitialChunkDataNbt(WrapperLookup registries) {
 		return createNbt(registries);
 	}
-	
+
+	public boolean canAdd1FuelToRod() {
+		return !rod().isEmpty() && rod().getItem() instanceof FuelSupplierItem r && !r.isFull(rod());
+	}
+
+	public boolean canAdd1FuelToRodOrNeighbor() {
+		if (canAdd1FuelToRod())
+			return true;
+		for (var d : KRedstone.DALL)
+			if (world.getBlockEntity(pos.offset(d)) instanceof BurnerBlockEntity neigh && neigh.canAdd1FuelToRod())
+				return true;
+		return false;
+	}
+
 	public boolean add1FuelToRod() {
-		if (rod().isEmpty()) return false;
-		rod().set(ModComponents.FUEL, rod().getOrDefault(ModComponents.FUEL, 0) + 1);
-		return true;
+		if (canAdd1FuelToRod()) {
+			rod().set(ModComponents.FUEL, rodCharge() + 1);
+			return true;
+		}
+		return false;
 	}
 
 	public boolean needsToBurn() {
-		if (!rod().isEmpty()) return true;
+		if (!rod().isEmpty())
+			return true;
 		for (var d : KRedstone.DALL) {
-			if (world.getBlockEntity(pos.offset(d)) instanceof BurnerBlockEntity neigh && !neigh.rod().isEmpty()) return true;
+			if (world.getBlockEntity(pos.offset(d)) instanceof BurnerBlockEntity neigh && !neigh.rod().isEmpty())
+				return true;
 		}
 		return false;
 	}
 
 	public static void tick(World world, BlockPos pos, BlockState state, BurnerBlockEntity entity) {
 		if (entity.burnLeft > 0) {
-			if (!entity.add1FuelToRod()) {
-				for (var d : KRedstone.DALL) {
-					if (world.getBlockEntity(pos.offset(d)) instanceof BurnerBlockEntity neigh) {
-						if (neigh.add1FuelToRod()) break;
-					}
-				}
-			}
+			if (!entity.add1FuelToRod())
+				for (var d : KRedstone.DALL)
+					if (world.getBlockEntity(pos.offset(d)) instanceof BurnerBlockEntity neigh && neigh.add1FuelToRod())
+						break;
 			--entity.burnLeft;
 			if (!state.get(Properties.LIT))
 				world.setBlockState(pos, state.with(Properties.LIT, true));
-		} else if (entity.burnLeft == 0 && !entity.fuel().isEmpty() && entity.needsToBurn()) {
+		} else if (entity.burnLeft == 0 && entity.canAdd1FuelToRodOrNeighbor() && entity.needsToBurn()) {
 			int fuel = world.getFuelRegistry().getFuelTicks(entity.fuel());
 			entity.fuel().decrement(1);
 			entity.burnLeft = entity.burnTotal = fuel;
@@ -138,8 +182,12 @@ public class BurnerBlockEntity extends BlockEntity
 	}
 
 	@Override
-	public @Nullable Storage<ItemVariant> getItemStorage(@Nullable Direction side) {
-		// if (side == Direction.DOWN)
-		return null;
+	public Storage<ItemVariant> getItemStorage(Direction side) {
+		return storages[side == null ? 0 : side.getIndex()];
+	}
+
+	private void update() {
+		if (world != null)
+			world.updateListeners(pos, getCachedState(), getCachedState(), Block.NOTIFY_ALL);
 	}
 }

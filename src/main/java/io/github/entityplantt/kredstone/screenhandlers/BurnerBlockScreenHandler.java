@@ -1,9 +1,9 @@
 package io.github.entityplantt.kredstone.screenhandlers;
 
 import io.github.entityplantt.kredstone.ModBlocks;
-import io.github.entityplantt.kredstone.ModItems;
 import io.github.entityplantt.kredstone.ModScreenHandlers;
 import io.github.entityplantt.kredstone.block_entities.BurnerBlockEntity;
+import io.github.entityplantt.kredstone.items.FuelSupplierItem;
 import io.github.entityplantt.kredstone.network.BlockPosPayload;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -26,19 +26,19 @@ public class BurnerBlockScreenHandler extends ScreenHandler {
 		super(ModScreenHandlers.BURNER, syncId);
 		this.entity = entity;
 		context = ScreenHandlerContext.create(entity.getWorld(), entity.getPos());
-		addPlayerSlots(inventory, 8, 50);
-		addSlot(new Slot(entity.inventory, 0, 105, 22) {
+		addSlot(new Slot(entity.rodInventory, 0, 105, 22) {
 			@Override
 			public boolean canInsert(ItemStack stack) {
-				return stack.getItem().equals(ModItems.FUEL_SUPPLIER);
+				return stack.getItem() instanceof FuelSupplierItem fs && !fs.isFull(stack);
 			}
 		});
-		addSlot(new Slot(entity.inventory, 1, 55, 22) {
+		addSlot(new Slot(entity.fuelInventory, 0, 55, 22) {
 			@Override
 			public boolean canInsert(ItemStack stack) {
 				return entity.getWorld().getFuelRegistry().isFuel(stack);
 			}
 		});
+		addPlayerSlots(inventory, 8, 50);
 	}
 
 	@Override
@@ -47,11 +47,36 @@ public class BurnerBlockScreenHandler extends ScreenHandler {
 	}
 
 	@Override
-	public ItemStack quickMove(PlayerEntity player, int slot) {
-		return ItemStack.EMPTY;
+	public ItemStack quickMove(PlayerEntity player, int slotidx) {
+		var newStack = ItemStack.EMPTY;
+		var slot = getSlot(slotidx);
+		if (slot != null && slot.hasStack()) {
+			var slotStack = slot.getStack();
+			newStack = slotStack.copy();
+			if (slotidx < 2) {
+				// slot in block
+				if (!insertItem(slotStack, 2, slots.size(), true))
+					return ItemStack.EMPTY;
+			}
+			// slot in player
+			else if (!insertItem(slotStack, 0, 2, false))
+				return ItemStack.EMPTY;
+			if (slotStack.isEmpty())
+				slot.setStack(ItemStack.EMPTY);
+			else
+				slot.markDirty();
+		}
+		return newStack;
 	}
 
 	public BurnerBlockEntity getEntity() {
 		return entity;
+	}
+
+	@Override
+	public void onClosed(PlayerEntity player) {
+		super.onClosed(player);
+		this.entity.rodInventory.onClose(player);
+		this.entity.fuelInventory.onClose(player);
 	}
 }

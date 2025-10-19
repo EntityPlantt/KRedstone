@@ -10,8 +10,7 @@ import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 
 public class AbstractFuelContainerBlockEntity extends BlockEntity {
-	protected int maxfuel = 5000;
-	protected int fuel = 0;
+	protected int maxFuel = 5000, fuel = 0;
 	protected static final String KEY_FUEL = "fuel";
 
 	public AbstractFuelContainerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -38,7 +37,12 @@ public class AbstractFuelContainerBlockEntity extends BlockEntity {
 	public int getFuel() {
 		return fuel;
 	}
+
+	public int getMaxFuel() {
+		return maxFuel;
+	}
+
 	public void changeFuel(int delta) {
-		fuel = Math.clamp(fuel + delta, 0, this.maxfuel);
+		fuel = Math.clamp(fuel + delta, 0, this.maxFuel);
 	}
 }

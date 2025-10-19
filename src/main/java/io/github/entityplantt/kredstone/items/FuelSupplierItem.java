@@ -1,6 +1,5 @@
 package io.github.entityplantt.kredstone.items;
 
-import java.time.Instant;
 import java.util.function.Consumer;
 
 import io.github.entityplantt.kredstone.ModComponents;

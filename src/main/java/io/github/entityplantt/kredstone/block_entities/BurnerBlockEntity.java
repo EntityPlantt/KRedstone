@@ -1,6 +1,5 @@
 package io.github.entityplantt.kredstone.block_entities;
 
-import io.github.entityplantt.kredstone.KRedstone;
 import io.github.entityplantt.kredstone.ModBlockEntities;
 import io.github.entityplantt.kredstone.ModBlocks;
 import io.github.entityplantt.kredstone.ModComponents;
@@ -117,7 +116,7 @@ public class BurnerBlockEntity extends BlockEntity
 	public boolean canAdd1FuelToRodOrNeighbor() {
 		if (canAdd1FuelToRod())
 			return true;
-		for (var d : KRedstone.DALL)
+		for (var d : Direction.values())
 			if (world.getBlockEntity(pos.offset(d)) instanceof BurnerBlockEntity neigh && neigh.canAdd1FuelToRod())
 				return true;
 		return false;
@@ -134,7 +133,7 @@ public class BurnerBlockEntity extends BlockEntity
 	public boolean needsToBurn() {
 		if (!rod().isEmpty())
 			return true;
-		for (var d : KRedstone.DALL) {
+		for (var d : Direction.values()) {
 			if (world.getBlockEntity(pos.offset(d)) instanceof BurnerBlockEntity neigh && !neigh.rod().isEmpty())
 				return true;
 		}
@@ -144,7 +143,7 @@ public class BurnerBlockEntity extends BlockEntity
 	public static void tick(World world, BlockPos pos, BlockState state, BurnerBlockEntity entity) {
 		if (entity.burnLeft > 0) {
 			if (!entity.add1FuelToRod())
-				for (var d : KRedstone.DALL)
+				for (var d : Direction.values())
 					if (world.getBlockEntity(pos.offset(d)) instanceof BurnerBlockEntity neigh && neigh.add1FuelToRod())
 						break;
 			--entity.burnLeft;

@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "kredstone:block/drill_controller"
+  }
+}

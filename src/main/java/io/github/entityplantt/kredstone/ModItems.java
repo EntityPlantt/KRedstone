@@ -37,6 +37,7 @@ public class ModItems {
 	public static final Item PREPARED_STEEL = register("prepared_steel", Item::new, new Item.Settings());
 	public static final Item STEEL_INGOT = register("steel_ingot", Item::new, new Item.Settings());
 	public static final Item SILICON = register("silicon", Item::new, new Item.Settings());
+	public static final Item DRILL = register("drill", Item::new, new Item.Settings());
 	public static final Item CAPACITOR = register("capacitor", Item::new, new Item.Settings());
 	public static final Item CAPACITOR_ADVANCED = register("capacitor_advanced", Item::new, new Item.Settings());
 	public static final Item FUEL_SUPPLIER = register("fuel_supplier", FuelSupplierItem::new,

@@ -30,6 +30,7 @@ public class ModelProvider extends FabricModelProvider {
 		gen.registerSimpleCubeAll(ModBlocks.EXCITED_BEDROCK);
 		gen.registerSimpleCubeAll(ModBlocks.EXCITED_OBSIDIAN);
 		gen.registerSimpleCubeAll(ModBlocks.EXCITED_CRYING_OBSIDIAN);
+		gen.registerSimpleCubeAll(ModBlocks.DRILL_CONTROLLER);
 		registerBooleanProperty(gen, ModBlocks.BURNER, Properties.LIT, "_on");
 	}
 
@@ -51,6 +52,7 @@ public class ModelProvider extends FabricModelProvider {
 		gen.register(ModItems.SILICON, Models.GENERATED);
 		gen.register(ModItems.CAPACITOR, Models.GENERATED);
 		gen.register(ModItems.CAPACITOR_ADVANCED, Models.GENERATED);
+		gen.register(ModItems.DRILL, Models.GENERATED);
 		gen.output.accept(ModBlocks.EXCITER.asItem(), ItemModels.basic(ModelIds.getBlockModelId(ModBlocks.EXCITER)));
 		gen.register(ModItems.FUEL_SUPPLIER, Models.HANDHELD);
 		gen.register(ModItems.FUEL_SUPPLIER_ADVANCED, Models.HANDHELD);

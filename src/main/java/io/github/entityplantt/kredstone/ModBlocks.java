@@ -11,7 +11,6 @@ import io.github.entityplantt.kredstone.blocks.ExciterBlock;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.piston.PistonBehavior;
@@ -67,7 +66,7 @@ public class ModBlocks {
 			true);
 	public static final ExciterBlock EXCITER = register("exciter", ExciterBlock::new,
 			MACHINE_CORE.getSettings().pistonBehavior(PistonBehavior.IGNORE)
-					.luminance((BlockState state) -> state.get(ExciterBlock.POWER) == 0 ? 0 : 9),
+					.luminance(state -> /* state.get(ExciterBlock.POWER) == 0 ? 0 : */ 9),
 			true);
 	public static final DrillBlock DRILL = register("drill", DrillBlock::new, Blocks.IRON_CHAIN.getSettings(), false);
 	public static final DrillControllerBlock DRILL_CONTROLLER = register("drill_controller", DrillControllerBlock::new, MACHINE_CORE.getSettings(), true);

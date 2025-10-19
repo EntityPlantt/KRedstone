@@ -14,17 +14,19 @@ public class EncasedCapacitorBlockEntity extends AbstractFuelContainerBlockEntit
 		super(ModBlockEntities.ENCASED_CAPACITOR, pos, state);
 	}
 
-	public static void tick(World world, BlockPos pos, BlockState state, BlockEntity _entity) {
-		var e = (EncasedCapacitorBlockEntity) _entity;
-		var d = state.get(EncasedCapacitorBlock.FACING);
+	public static void tick(World world, BlockPos pos, BlockState state, BlockEntity entity) {
+		final var e = (EncasedCapacitorBlockEntity) entity;
+		final var d = state.get(EncasedCapacitorBlock.FACING);
 		if (e.fuel > 0) {
 			var neighborPos = pos.offset(d.getOpposite());
 			var neighbor = world.getBlockState(neighborPos);
 			if (neighbor.getBlock() instanceof IPowerableBlock b) {
 				int requiredPower = b.powerNeeds(world, neighborPos, neighbor, d);
-				if (requiredPower <= e.fuel) {
+				if (requiredPower > 0 && requiredPower <= e.fuel) {
 					e.fuel -= requiredPower;
 					b.getPowered(world, neighborPos, neighbor, d);
+					markDirty(world, pos, state);
+					world.updateListeners(pos, state, state, 3);
 				}
 			}
 			if (Math.random() < .1) {

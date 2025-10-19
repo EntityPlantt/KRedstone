@@ -22,6 +22,6 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 	protected void configure(WrapperLookup wrapperLookup) {
 		valueLookupBuilder(PICKAXE).setReplace(false)
 				.add(ModBlocks.STEEL_BLOCK, ModBlocks.MACHINE_CORE, ModBlocks.BURNER, ModBlocks.EXCITED_OBSIDIAN,
-						ModBlocks.EXCITED_CRYING_OBSIDIAN, ModBlocks.EXCITER);
+						ModBlocks.EXCITED_CRYING_OBSIDIAN, ModBlocks.EXCITER, ModBlocks.DRILL_CONTROLLER, ModBlocks.DRILL);
 	}
 }

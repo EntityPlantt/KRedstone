@@ -19,7 +19,10 @@ public class ModBlockEntities {
 
 	public static final BlockEntityType<EncasedCapacitorBlockEntity> ENCASED_CAPACITOR = register("encased_capacitor",
 			EncasedCapacitorBlockEntity::new, ModBlocks.ENCASED_CAPACITOR);
-	public static final BlockEntityType<BurnerBlockEntity> BURNER = register("burner", BurnerBlockEntity::new, ModBlocks.BURNER);
+	public static final BlockEntityType<BurnerBlockEntity> BURNER = register("burner", BurnerBlockEntity::new,
+			ModBlocks.BURNER);
+	public static final BlockEntityType<DrillControllerBlockEntity> DRILL_CONTROLLER = register("drill_controller",
+			DrillControllerBlockEntity::new, ModBlocks.DRILL_CONTROLLER);
 
 	public static void init() {
 		KRedstone.LOGGER.info("Registering mod block entities");

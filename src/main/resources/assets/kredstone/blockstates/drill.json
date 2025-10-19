@@ -1,0 +1,16 @@
+{
+	"variants": {
+		"drilling=true,tip=false": {
+			"model": "kredstone:block/drilling"
+		},
+		"drilling=false,tip=false": {
+			"model": "kredstone:block/drill"
+		},
+		"drilling=true,tip=true": {
+			"model": "kredstone:block/drilling_tip"
+		},
+		"drilling=false,tip=true": {
+			"model": "kredstone:block/drill_tip"
+		}
+	}
+}

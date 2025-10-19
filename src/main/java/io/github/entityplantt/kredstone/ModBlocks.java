@@ -3,6 +3,8 @@ package io.github.entityplantt.kredstone;
 import java.util.function.Function;
 
 import io.github.entityplantt.kredstone.blocks.BurnerBlock;
+import io.github.entityplantt.kredstone.blocks.DrillBlock;
+import io.github.entityplantt.kredstone.blocks.DrillControllerBlock;
 import io.github.entityplantt.kredstone.blocks.EncasedCapacitorBlock;
 import io.github.entityplantt.kredstone.blocks.ExcitedBlock;
 import io.github.entityplantt.kredstone.blocks.ExciterBlock;
@@ -67,6 +69,8 @@ public class ModBlocks {
 			MACHINE_CORE.getSettings().pistonBehavior(PistonBehavior.IGNORE)
 					.luminance((BlockState state) -> state.get(ExciterBlock.POWER) == 0 ? 0 : 9),
 			true);
+	public static final DrillBlock DRILL = register("drill", DrillBlock::new, Blocks.IRON_CHAIN.getSettings(), false);
+	public static final DrillControllerBlock DRILL_CONTROLLER = register("drill_controller", DrillControllerBlock::new, MACHINE_CORE.getSettings(), true);
 
 	public static void init() {
 		KRedstone.LOGGER.info("Registering mod blocks");

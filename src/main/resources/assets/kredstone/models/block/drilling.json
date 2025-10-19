@@ -1,0 +1,6 @@
+{
+	"parent": "kredstone:block/drill",
+	"textures": {
+		"0": "kredstone:block/drilling"
+	}
+}

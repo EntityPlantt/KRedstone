@@ -25,6 +25,7 @@ public class KRedstone implements ModInitializer {
 		ModBlockEntities.init();
 		ModComponents.init();
 		ModScreenHandlers.init();
+		ModRecipeSerializers.init();
 
 		ItemStorage.SIDED.registerForBlockEntity(BurnerBlockEntity::getItemStorage, ModBlockEntities.BURNER);
 	}

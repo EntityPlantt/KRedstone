@@ -1,5 +1,6 @@
 package io.github.entityplantt.kredstone.items;
 
+import java.time.Instant;
 import java.util.function.Consumer;
 
 import io.github.entityplantt.kredstone.ModComponents;
@@ -72,5 +73,20 @@ public class FuelSupplierItem extends Item {
 			this.click_max_change = click_max_change;
 			return this;
 		}
-	};
+	}
+
+	@Override
+	public final boolean isItemBarVisible(ItemStack stack) {
+		return true;
+	}
+
+	@Override
+	public final int getItemBarColor(ItemStack stack) {
+		return 0xff8000;
+	}
+
+	@Override
+	public int getItemBarStep(ItemStack stack) {
+		return Math.clamp(stack.getOrDefault(ModComponents.FUEL, 0) * 13 / max_fuel, 0, 13);
+	}
 }

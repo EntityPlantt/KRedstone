@@ -19,11 +19,18 @@ public class ModItems {
 			KRedstone.id("items"));
 
 	public static <T extends Item.Settings> Item register(String name, Function<T, Item> factory, T settings) {
-		RegistryKey<Item> key = RegistryKey.of(RegistryKeys.ITEM, KRedstone.id(name));
+		var key = RegistryKey.of(RegistryKeys.ITEM, KRedstone.id(name));
 		@SuppressWarnings("unchecked")
-		Item item = factory.apply((T) settings.registryKey(key));
+		var item = factory.apply((T) settings.registryKey(key));
 		Registry.register(Registries.ITEM, key, item);
-		ItemGroupEvents.modifyEntriesEvent(ITEM_GROUP_KEY).register(i -> i.add(item));
+		ItemGroupEvents.modifyEntriesEvent(ITEM_GROUP_KEY).register(i -> {
+			i.add(item);
+			if (item instanceof FuelSupplierItem fuelSupplierItem) {
+				var stack = new ItemStack(item);
+				stack.set(ModComponents.FUEL, fuelSupplierItem.max_fuel);
+				i.add(stack);
+			}
+		});
 		return item;
 	}
 

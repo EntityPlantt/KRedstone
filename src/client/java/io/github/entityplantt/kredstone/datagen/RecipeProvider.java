@@ -87,13 +87,6 @@ public class RecipeProvider extends FabricRecipeProvider {
 						.input('g', Items.GOLD_INGOT)
 						.criterion(hasItem(ModItems.CAPACITOR), conditionsFromItem(ModItems.CAPACITOR))
 						.offerTo(exporter);
-				createShaped(rc, ModItems.FUEL_SUPPLIER_ADVANCED)
-						.pattern("  b").pattern(" c ").pattern("r  ")
-						.input('b', ModItems.FUEL_SUPPLIER)
-						.input('r', Items.REDSTONE)
-						.input('c', ModItems.CAPACITOR_ADVANCED)
-						.criterion(hasItem(ModItems.FUEL_SUPPLIER), conditionsFromItem(ModItems.FUEL_SUPPLIER))
-						.offerTo(exporter);
 			}
 		};
 	}

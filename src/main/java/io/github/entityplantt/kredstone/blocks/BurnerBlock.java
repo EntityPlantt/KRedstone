@@ -26,7 +26,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 
 public class BurnerBlock extends BlockWithEntity {
-	private static MapCodec<BurnerBlock> CODEC = createCodec(BurnerBlock::new);
+	private static final MapCodec<BurnerBlock> CODEC = createCodec(BurnerBlock::new);
 
 	public BurnerBlock(Settings s) {
 		super(s);
